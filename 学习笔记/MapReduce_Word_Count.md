@@ -13,7 +13,7 @@
 < Goodbye, 1>  
 < Hadoop, 1>  
 
-2. 合并(Combine): WordCount同样指定了一个combiner。因此，在通过key们分类合并过后，每一个map的输出会通过一个为了本地合并的本地combiner(Reducer)。也就是将key相同的健队值合并(如果key相同，将它们的value合并)。合并对象为每一个map。  
+2. 合并(Combine): WordCount同样指定了一个combiner。因此，在通过key们分类合并过后，每一个map的输出会通过一个为了本地合并的本地combiner(Reducer)。也就是将key相同的健队值合并(如果key相同，将它们的value合并)。合并对象为每一个map。用户可通过指定的Comparator  Job.setGroupingComparatorClass(Class)，来指定那些中间层数据通过什么规则进行合并。  
 合并后的第一个map:  
 < Bye, 1>  
 < Hello, 1>  
@@ -44,3 +44,20 @@
 3. IntWritable
     + 解释: 它是一个实现了WritableComparable接口的类，目的是为了实现在网络传输中的所需要的序列化和反序列化方法。它的作用实际上就是一个可以序列化，反序列化，可比较的一个int包装类。
     + 参考资料: https://blog.csdn.net/ghuilee/article/details/45705169
+
+
+## 关键类
+1. Mapper
+    + 介绍: Mapper类的Maps是单独的进程，这个进程将输入记录转化为中间层记录
+
+
+
+## 其他
+1. Maps的数量  
+    + maps的数量通常是由输入数据的总量来决定的，就是，这些输入文件的块数量(the total number of blocks of the input files)。每个节点的maps的正确数量应该差不多是10-100个。(The right level of parallelism for maps seems to be around 10-100 maps per-node)
+
+2. setSortComparatorClass和setGroupingComparatorClass的区别
+    + setSortComparatorClass: 定义一个比较器，控制keys在进入Reducer前怎样进行排序
+    + setGroupingComparatorClass: 定义一个比较器，控制哪些keys在调用reduce方法时需要被聚合起来。
+
+参考资料:http://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html
