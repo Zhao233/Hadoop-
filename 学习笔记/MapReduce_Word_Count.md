@@ -60,4 +60,8 @@
     + setSortComparatorClass: 定义一个比较器，控制keys在进入Reducer前怎样进行排序
     + setGroupingComparatorClass: 定义一个比较器，控制哪些keys在调用reduce方法时需要被聚合起来。
 
+3. Mapper中的四个泛型类,必须实现WritableComparable
+4. 程序中system.out.print的输出在logs下的userLogs中每个containner中的stdout中
+5. mapper的数量可以通过设置mapred.max.split.size设置。输值越大，map数量就越大
+
 参考资料:http://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html
