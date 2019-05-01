@@ -62,6 +62,8 @@
 
 3. Mapper中的四个泛型类,必须实现WritableComparable
 4. 程序中system.out.print的输出在logs下的userLogs中每个containner中的stdout中
-5. mapper的数量可以通过设置mapred.max.split.size设置。输值越大，map数量就越大
+5. mapper的数量可以通过设置mapred.min.split.size, mapred.map.tasks设置。输值越大，map数量就越大
+6. 如果输入中有很多小文件，依然想减少map个数，则需要将小文件merger为大文件，然后使用准则2
+
 
 参考资料:http://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html
